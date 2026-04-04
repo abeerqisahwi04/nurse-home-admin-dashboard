@@ -1,61 +1,59 @@
 import { useState } from "react";
 import { Search, Eye, CheckCircle, XCircle, AlertCircle, FileText } from "lucide-react";
 
-type VerificationStatus = "Pending" | "Approved" | "Rejected";
 
-interface Nurse {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  registrationDate: string;
-  status: VerificationStatus;
-  documents: string[];
+  id;
+  name;
+  email;
+  phone;
+  registrationDate;
+  status;
+  documents[];
 }
 
-const mockNurses: Nurse[] = [
+const mockNurses[] = [
   {
-    id: "N001",
-    name: "Dr. Emily Chen",
-    email: "emily.chen@email.com",
-    phone: "(555) 123-4567",
-    registrationDate: "2026-02-28",
-    status: "Pending",
-    documents: ["Medical License", "ID Card", "Certificates"],
+    id"N001",
+    name"Dr. Emily Chen",
+    email"emily.chen@email.com",
+    phone"(555) 123-4567",
+    registrationDate"2026-02-28",
+    status"Pending",
+    documents["Medical License", "ID Card", "Certificates"],
   },
   {
-    id: "N002",
-    name: "Maria Rodriguez",
-    email: "maria.r@email.com",
-    phone: "(555) 234-5678",
-    registrationDate: "2026-02-27",
-    status: "Pending",
-    documents: ["Medical License", "ID Card"],
+    id"N002",
+    name"Maria Rodriguez",
+    email"maria.r@email.com",
+    phone"(555) 234-5678",
+    registrationDate"2026-02-27",
+    status"Pending",
+    documents["Medical License", "ID Card"],
   },
   {
-    id: "N003",
-    name: "Sarah Johnson",
-    email: "s.johnson@email.com",
-    phone: "(555) 345-6789",
-    registrationDate: "2026-02-26",
-    status: "Approved",
-    documents: ["Medical License", "ID Card", "Certificates"],
+    id"N003",
+    name"Sarah Johnson",
+    email"s.johnson@email.com",
+    phone"(555) 345-6789",
+    registrationDate"2026-02-26",
+    status"Approved",
+    documents["Medical License", "ID Card", "Certificates"],
   },
   {
-    id: "N004",
-    name: "Lisa Wong",
-    email: "lisa.wong@email.com",
-    phone: "(555) 456-7890",
-    registrationDate: "2026-02-25",
-    status: "Rejected",
-    documents: ["Medical License", "ID Card"],
+    id"N004",
+    name"Lisa Wong",
+    email"lisa.wong@email.com",
+    phone"(555) 456-7890",
+    registrationDate"2026-02-25",
+    status"Rejected",
+    documents["Medical License", "ID Card"],
   },
 ];
 
 export default function NurseVerification() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<VerificationStatus | "All">("All");
-  const [selectedNurse, setSelectedNurse] = useState<Nurse | null>(null);
+  const [selectedNurse, setSelectedNurse] = useState(null);
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [rejectReason, setRejectReason] = useState("");
 
@@ -67,11 +65,11 @@ export default function NurseVerification() {
     return matchesSearch && matchesStatus;
   });
 
-  const getStatusBadge = (status: VerificationStatus) => {
+  const getStatusBadge = (status) => {
     const styles = {
-      Pending: "bg-yellow-100 text-yellow-800",
-      Approved: "bg-green-100 text-green-800",
-      Rejected: "bg-red-100 text-red-800",
+      Pending"bg-yellow-100 text-yellow-800",
+      Approved"bg-green-100 text-green-800",
+      Rejected"bg-red-100 text-red-800",
     };
     return (
       <span className={`px-3 py-1 rounded-full text-xs ${styles[status]}`}>
@@ -80,14 +78,14 @@ export default function NurseVerification() {
     );
   };
 
-  const handleApprove = (nurse: Nurse) => {
+  const handleApprove = (nurse) => {
     alert(`Nurse ${nurse.name} has been approved!`);
     setSelectedNurse(null);
   };
 
   const handleReject = () => {
     if (selectedNurse && rejectReason.trim()) {
-      alert(`Nurse ${selectedNurse.name} has been rejected. Reason: ${rejectReason}`);
+      alert(`Nurse ${selectedNurse.name} has been rejected. Reason${rejectReason}`);
       setShowRejectModal(false);
       setRejectReason("");
       setSelectedNurse(null);
@@ -99,7 +97,7 @@ export default function NurseVerification() {
       {/* Header Section */}
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-          <div>
+          
             <h2 className="text-gray-800 mb-1">Nurse Verification</h2>
             <p className="text-sm text-gray-500">Review and verify nurse registration applications</p>
           </div>
@@ -117,7 +115,7 @@ export default function NurseVerification() {
             <select
               className="px-4 py-2 border border-gray-300 rounded-lg bg-white"
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value as VerificationStatus | "All")}
+              onChange={(e) => setStatusFilter(e.target.value )}
             >
               <option value="All">All Status</option>
               <option value="Pending">Pending</option>
@@ -133,7 +131,7 @@ export default function NurseVerification() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
+              
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Nurse ID</th>
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Name</th>
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Email</th>
@@ -178,30 +176,30 @@ export default function NurseVerification() {
 
             <div className="p-6 space-y-6">
               {/* Basic Info */}
-              <div>
+              
                 <h4 className="text-gray-700 mb-3">Basic Information</h4>
                 <div className="grid grid-cols-2 gap-4">
-                  <div>
+                  
                     <p className="text-sm text-gray-500">Full Name</p>
                     <p className="text-sm text-gray-800 mt-1">{selectedNurse.name}</p>
                   </div>
-                  <div>
+                  
                     <p className="text-sm text-gray-500">Nurse ID</p>
                     <p className="text-sm text-gray-800 mt-1">{selectedNurse.id}</p>
                   </div>
-                  <div>
+                  
                     <p className="text-sm text-gray-500">Email</p>
                     <p className="text-sm text-gray-800 mt-1">{selectedNurse.email}</p>
                   </div>
-                  <div>
+                  
                     <p className="text-sm text-gray-500">Phone</p>
                     <p className="text-sm text-gray-800 mt-1">{selectedNurse.phone}</p>
                   </div>
-                  <div>
+                  
                     <p className="text-sm text-gray-500">Registration Date</p>
                     <p className="text-sm text-gray-800 mt-1">{selectedNurse.registrationDate}</p>
                   </div>
-                  <div>
+                  
                     <p className="text-sm text-gray-500">Status</p>
                     <div className="mt-1">{getStatusBadge(selectedNurse.status)}</div>
                   </div>
@@ -209,7 +207,7 @@ export default function NurseVerification() {
               </div>
 
               {/* Documents */}
-              <div>
+              
                 <h4 className="text-gray-700 mb-3">Uploaded Documents</h4>
                 <div className="space-y-2">
                   {selectedNurse.documents.map((doc, index) => (
@@ -237,7 +235,7 @@ export default function NurseVerification() {
                 Close
               </button>
               {selectedNurse.status === "Pending" && (
-                <>
+                
                   <button
                     onClick={() => {
                       setShowRejectModal(true);

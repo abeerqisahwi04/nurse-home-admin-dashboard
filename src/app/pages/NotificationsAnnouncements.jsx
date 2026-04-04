@@ -1,31 +1,30 @@
 import { useState } from "react";
 import { Send, Users, UserCheck, Bell } from "lucide-react";
 
-interface Notification {
-  id: string;
-  title: string;
-  message: string;
-  target: string;
-  date: string;
-  sentBy: string;
+  id;
+  title;
+  message;
+  target;
+  date;
+  sentBy;
 }
 
-const recentNotifications: Notification[] = [
+const recentNotifications[] = [
   {
-    id: "N001",
-    title: "System Maintenance",
-    message: "Scheduled maintenance on March 5th at 2:00 AM",
-    target: "All Users",
-    date: "2026-02-28",
-    sentBy: "Admin Sarah",
+    id"N001",
+    title"System Maintenance",
+    message"Scheduled maintenance on March 5th at 2:00 AM",
+    target"All Users",
+    date"2026-02-28",
+    sentBy"Admin Sarah",
   },
   {
-    id: "N002",
-    title: "New Service Available",
-    message: "Physical Therapy service is now available",
-    target: "Patients Only",
-    date: "2026-02-27",
-    sentBy: "Admin Michael",
+    id"N002",
+    title"New Service Available",
+    message"Physical Therapy service is now available",
+    target"Patients Only",
+    date"2026-02-27",
+    sentBy"Admin Michael",
   },
 ];
 
@@ -59,7 +58,7 @@ export default function NotificationsAnnouncements() {
           </h3>
 
           <div className="space-y-4">
-            <div>
+            
               <label className="block text-sm text-gray-700 mb-2">Target Audience</label>
               <select
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white"
@@ -72,7 +71,7 @@ export default function NotificationsAnnouncements() {
               </select>
             </div>
 
-            <div>
+            
               <label className="block text-sm text-gray-700 mb-2">Notification Title</label>
               <input
                 type="text"
@@ -83,7 +82,7 @@ export default function NotificationsAnnouncements() {
               />
             </div>
 
-            <div>
+            
               <label className="block text-sm text-gray-700 mb-2">Message</label>
               <textarea
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white"
@@ -191,9 +190,9 @@ export default function NotificationsAnnouncements() {
               </div>
               <p className="text-sm text-gray-600 mb-2">{notif.message}</p>
               <div className="flex items-center gap-4 text-xs text-gray-500">
-                <span>Target: {notif.target}</span>
-                <span>•</span>
-                <span>Sent by: {notif.sentBy}</span>
+                Target{notif.target}</span>
+                •</span>
+                Sent by{notif.sentBy}</span>
               </div>
             </div>
           ))}

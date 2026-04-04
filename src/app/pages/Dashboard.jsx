@@ -1,6 +1,7 @@
 import { Users, UserCheck, Clock, ClipboardList, TrendingUp, TrendingDown } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 
+// Converted from TypeScript
 const statsCards = [
   { title: "Total Patients", value: "2,847", change: "+12%", trend: "up", icon: Users, color: "#1F7A8C" },
   { title: "Total Nurses", value: "456", change: "+8%", trend: "up", icon: UserCheck, color: "#4CAF50" },

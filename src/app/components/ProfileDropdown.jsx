@@ -1,17 +1,12 @@
 import { useEffect, useRef } from "react";
 import { User, Settings, LogOut } from "lucide-react";
 
-interface ProfileDropdownProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export function ProfileDropdown({ isOpen, onClose }: ProfileDropdownProps) {
-  const dropdownRef = useRef<HTMLDivElement>(null);
+export function ProfileDropdown({ isOpen, onClose }) {
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         onClose();
       }
     }

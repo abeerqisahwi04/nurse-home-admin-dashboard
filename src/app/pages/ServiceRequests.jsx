@@ -1,66 +1,64 @@
 import { useState } from "react";
 import { Search, Eye, X, UserX } from "lucide-react";
 
-type RequestStatus = "Pending" | "Assigned" | "In Progress" | "Completed" | "Cancelled";
 
-interface ServiceRequest {
-  id: string;
-  patientName: string;
-  nurseName: string;
-  serviceType: string;
-  date: string;
-  time: string;
-  status: RequestStatus;
-  address: string;
+  id;
+  patientName;
+  nurseName;
+  serviceType;
+  date;
+  time;
+  status;
+  address;
 }
 
-const mockRequests: ServiceRequest[] = [
+const mockRequests[] = [
   {
-    id: "SR001",
-    patientName: "John Doe",
-    nurseName: "Dr. Emily Chen",
-    serviceType: "Home Care",
-    date: "2026-03-05",
-    time: "10:00 AM",
-    status: "Assigned",
-    address: "123 Main St, Apt 4B",
+    id"SR001",
+    patientName"John Doe",
+    nurseName"Dr. Emily Chen",
+    serviceType"Home Care",
+    date"2026-03-05",
+    time"10:00 AM",
+    status"Assigned",
+    address"123 Main St, Apt 4B",
   },
   {
-    id: "SR002",
-    patientName: "Jane Smith",
-    nurseName: "Unassigned",
-    serviceType: "Wound Care",
-    date: "2026-03-05",
-    time: "2:00 PM",
-    status: "Pending",
-    address: "456 Oak Ave",
+    id"SR002",
+    patientName"Jane Smith",
+    nurseName"Unassigned",
+    serviceType"Wound Care",
+    date"2026-03-05",
+    time"2:00 PM",
+    status"Pending",
+    address"456 Oak Ave",
   },
   {
-    id: "SR003",
-    patientName: "Robert Brown",
-    nurseName: "Sarah Johnson",
-    serviceType: "Physical Therapy",
-    date: "2026-03-04",
-    time: "11:00 AM",
-    status: "In Progress",
-    address: "789 Pine Rd",
+    id"SR003",
+    patientName"Robert Brown",
+    nurseName"Sarah Johnson",
+    serviceType"Physical Therapy",
+    date"2026-03-04",
+    time"11:00 AM",
+    status"In Progress",
+    address"789 Pine Rd",
   },
   {
-    id: "SR004",
-    patientName: "Alice Williams",
-    nurseName: "Maria Rodriguez",
-    serviceType: "IV Therapy",
-    date: "2026-03-03",
-    time: "3:00 PM",
-    status: "Completed",
-    address: "321 Elm St",
+    id"SR004",
+    patientName"Alice Williams",
+    nurseName"Maria Rodriguez",
+    serviceType"IV Therapy",
+    date"2026-03-03",
+    time"3:00 PM",
+    status"Completed",
+    address"321 Elm St",
   },
 ];
 
 export default function ServiceRequests() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<RequestStatus | "All">("All");
-  const [selectedRequest, setSelectedRequest] = useState<ServiceRequest | null>(null);
+  const [selectedRequest, setSelectedRequest] = useState(null);
 
   const filteredRequests = mockRequests.filter((request) => {
     const matchesSearch =
@@ -71,13 +69,13 @@ export default function ServiceRequests() {
     return matchesSearch && matchesStatus;
   });
 
-  const getStatusBadge = (status: RequestStatus) => {
+  const getStatusBadge = (status) => {
     const styles = {
-      Pending: "bg-yellow-100 text-yellow-800",
-      Assigned: "bg-blue-100 text-blue-800",
-      "In Progress": "bg-purple-100 text-purple-800",
-      Completed: "bg-green-100 text-green-800",
-      Cancelled: "bg-red-100 text-red-800",
+      Pending"bg-yellow-100 text-yellow-800",
+      Assigned"bg-blue-100 text-blue-800",
+      "In Progress""bg-purple-100 text-purple-800",
+      Completed"bg-green-100 text-green-800",
+      Cancelled"bg-red-100 text-red-800",
     };
     return <span className={`px-3 py-1 rounded-full text-xs ${styles[status]}`}>{status}</span>;
   };
@@ -87,7 +85,7 @@ export default function ServiceRequests() {
       {/* Header */}
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-          <div>
+          
             <h2 className="text-gray-800 mb-1">Service Requests Management</h2>
             <p className="text-sm text-gray-500">Monitor and manage all service requests</p>
           </div>
@@ -105,7 +103,7 @@ export default function ServiceRequests() {
             <select
               className="px-4 py-2 border border-gray-300 rounded-lg bg-white"
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value as RequestStatus | "All")}
+              onChange={(e) => setStatusFilter(e.target.value )}
             >
               <option value="All">All Status</option>
               <option value="Pending">Pending</option>
@@ -123,7 +121,7 @@ export default function ServiceRequests() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
+              
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Request ID</th>
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Patient Name</th>
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Assigned Nurse</th>
@@ -141,7 +139,7 @@ export default function ServiceRequests() {
                   <td className="px-6 py-4 text-sm text-gray-600">
                     {request.nurseName === "Unassigned" ? (
                       <span className="text-yellow-600 italic">{request.nurseName}</span>
-                    ) : (
+                    ) (
                       request.nurseName
                     )}
                   </td>
@@ -160,7 +158,7 @@ export default function ServiceRequests() {
                         <Eye className="w-4 h-4" />
                       </button>
                       {request.status !== "Cancelled" && request.status !== "Completed" && (
-                        <>
+                        
                           <button className="p-1 text-blue-600 hover:bg-blue-50 rounded transition-colors" title="Reassign Nurse">
                             <UserX className="w-4 h-4" />
                           </button>
@@ -187,27 +185,27 @@ export default function ServiceRequests() {
             </div>
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div>
+                
                   <p className="text-sm text-gray-500">Request ID</p>
                   <p className="text-sm text-gray-800 mt-1">{selectedRequest.id}</p>
                 </div>
-                <div>
+                
                   <p className="text-sm text-gray-500">Status</p>
                   <div className="mt-1">{getStatusBadge(selectedRequest.status)}</div>
                 </div>
-                <div>
+                
                   <p className="text-sm text-gray-500">Patient Name</p>
                   <p className="text-sm text-gray-800 mt-1">{selectedRequest.patientName}</p>
                 </div>
-                <div>
+                
                   <p className="text-sm text-gray-500">Assigned Nurse</p>
                   <p className="text-sm text-gray-800 mt-1">{selectedRequest.nurseName}</p>
                 </div>
-                <div>
+                
                   <p className="text-sm text-gray-500">Service Type</p>
                   <p className="text-sm text-gray-800 mt-1">{selectedRequest.serviceType}</p>
                 </div>
-                <div>
+                
                   <p className="text-sm text-gray-500">Date & Time</p>
                   <p className="text-sm text-gray-800 mt-1">
                     {selectedRequest.date} at {selectedRequest.time}
@@ -227,7 +225,7 @@ export default function ServiceRequests() {
                 Close
               </button>
               {selectedRequest.status !== "Cancelled" && selectedRequest.status !== "Completed" && (
-                <>
+                
                   <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                     Reassign Nurse
                   </button>

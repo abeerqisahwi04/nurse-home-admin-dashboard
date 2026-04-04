@@ -1,16 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Bell, Check, CheckCheck, Eye } from "lucide-react";
 
-interface Notification {
-  id: string;
-  title: string;
-  description: string;
-  timestamp: string;
-  isRead: boolean;
-  type: "verification" | "payment" | "complaint" | "booking";
-}
-
-const mockNotifications: Notification[] = [
+const mockNotifications = [
   {
     id: "N001",
     title: "New Nurse Verification Request",
@@ -53,18 +44,13 @@ const mockNotifications: Notification[] = [
   },
 ];
 
-interface NotificationDropdownProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export function NotificationDropdown({ isOpen, onClose }: NotificationDropdownProps) {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
+export function NotificationDropdown({ isOpen, onClose }) {
+  const dropdownRef = useRef(null);
+  const [notifications, setNotifications] = useState(mockNotifications);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         onClose();
       }
     }
@@ -82,7 +68,7 @@ export function NotificationDropdown({ isOpen, onClose }: NotificationDropdownPr
 
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 
-  const markAsRead = (id: string) => {
+  const markAsRead = (id) => {
     setNotifications((prev) =>
       prev.map((notif) => (notif.id === id ? { ...notif, isRead: true } : notif))
     );
@@ -92,14 +78,14 @@ export function NotificationDropdown({ isOpen, onClose }: NotificationDropdownPr
     setNotifications((prev) => prev.map((notif) => ({ ...notif, isRead: true })));
   };
 
-  const getTypeColor = (type: string) => {
+  const getTypeColor = (type) => {
     const colors = {
       verification: "bg-blue-100 text-blue-600",
       payment: "bg-green-100 text-green-600",
       complaint: "bg-red-100 text-red-600",
       booking: "bg-purple-100 text-purple-600",
     };
-    return colors[type as keyof typeof colors] || "bg-gray-100 text-gray-600";
+    return colors[type] || "bg-gray-100 text-gray-600";
   };
 
   return (

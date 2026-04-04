@@ -1,37 +1,34 @@
 import { useState } from "react";
 import { Search, Eye, Ban, CheckCircle, RotateCcw } from "lucide-react";
 
-type UserType = "Patient" | "Nurse";
-type UserStatus = "Active" | "Suspended";
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  joinDate: string;
-  status: UserStatus;
-  type: UserType;
+  id;
+  name;
+  email;
+  phone;
+  joinDate;
+  status;
+  type;
 }
 
-const mockPatients: User[] = [
-  { id: "P001", name: "John Doe", email: "john.doe@email.com", phone: "(555) 111-2222", joinDate: "2026-01-15", status: "Active", type: "Patient" },
-  { id: "P002", name: "Jane Smith", email: "jane.smith@email.com", phone: "(555) 222-3333", joinDate: "2026-01-20", status: "Active", type: "Patient" },
-  { id: "P003", name: "Robert Brown", email: "robert.b@email.com", phone: "(555) 333-4444", joinDate: "2026-02-10", status: "Suspended", type: "Patient" },
+const mockPatients[] = [
+  { id"P001", name"John Doe", email"john.doe@email.com", phone"(555) 111-2222", joinDate"2026-01-15", status"Active", type"Patient" },
+  { id"P002", name"Jane Smith", email"jane.smith@email.com", phone"(555) 222-3333", joinDate"2026-01-20", status"Active", type"Patient" },
+  { id"P003", name"Robert Brown", email"robert.b@email.com", phone"(555) 333-4444", joinDate"2026-02-10", status"Suspended", type"Patient" },
 ];
 
-const mockNurses: User[] = [
-  { id: "N001", name: "Dr. Emily Chen", email: "emily.chen@email.com", phone: "(555) 123-4567", joinDate: "2025-11-05", status: "Active", type: "Nurse" },
-  { id: "N002", name: "Sarah Johnson", email: "s.johnson@email.com", phone: "(555) 345-6789", joinDate: "2025-12-15", status: "Active", type: "Nurse" },
-  { id: "N003", name: "Maria Rodriguez", email: "maria.r@email.com", phone: "(555) 234-5678", joinDate: "2026-01-08", status: "Active", type: "Nurse" },
+const mockNurses[] = [
+  { id"N001", name"Dr. Emily Chen", email"emily.chen@email.com", phone"(555) 123-4567", joinDate"2025-11-05", status"Active", type"Nurse" },
+  { id"N002", name"Sarah Johnson", email"s.johnson@email.com", phone"(555) 345-6789", joinDate"2025-12-15", status"Active", type"Nurse" },
+  { id"N003", name"Maria Rodriguez", email"maria.r@email.com", phone"(555) 234-5678", joinDate"2026-01-08", status"Active", type"Nurse" },
 ];
 
 export default function UsersManagement() {
-  const [activeTab, setActiveTab] = useState<UserType>("Patient");
+  const [activeTab, setActiveTab] = useState("Patient");
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<UserStatus | "All">("All");
 
-  const currentUsers = activeTab === "Patient" ? mockPatients : mockNurses;
+  const currentUsers = activeTab === "Patient" ? mockPatients ;
 
   const filteredUsers = currentUsers.filter((user) => {
     const matchesSearch =
@@ -41,10 +38,10 @@ export default function UsersManagement() {
     return matchesSearch && matchesStatus;
   });
 
-  const getStatusBadge = (status: UserStatus) => {
+  const getStatusBadge = (status) => {
     const styles = {
-      Active: "bg-green-100 text-green-800",
-      Suspended: "bg-red-100 text-red-800",
+      Active"bg-green-100 text-green-800",
+      Suspended"bg-red-100 text-red-800",
     };
     return <span className={`px-3 py-1 rounded-full text-xs ${styles[status]}`}>{status}</span>;
   };
@@ -54,7 +51,7 @@ export default function UsersManagement() {
       {/* Header */}
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-          <div>
+          
             <h2 className="text-gray-800 mb-1">Users Management</h2>
             <p className="text-sm text-gray-500">Manage patients and nurses accounts</p>
           </div>
@@ -72,7 +69,7 @@ export default function UsersManagement() {
             <select
               className="px-4 py-2 border border-gray-300 rounded-lg bg-white"
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value as UserStatus | "All")}
+              onChange={(e) => setStatusFilter(e.target.value )}
             >
               <option value="All">All Status</option>
               <option value="Active">Active</option>
@@ -91,7 +88,7 @@ export default function UsersManagement() {
               className={`px-6 py-3 text-sm transition-colors ${
                 activeTab === "Patient"
                   ? "border-b-2 border-[#1F7A8C] text-[#1F7A8C]"
-                  : "text-gray-600 hover:text-gray-800"
+                  "text-gray-600 hover:text-gray-800"
               }`}
             >
               Patients ({mockPatients.length})
@@ -101,7 +98,7 @@ export default function UsersManagement() {
               className={`px-6 py-3 text-sm transition-colors ${
                 activeTab === "Nurse"
                   ? "border-b-2 border-[#1F7A8C] text-[#1F7A8C]"
-                  : "text-gray-600 hover:text-gray-800"
+                  "text-gray-600 hover:text-gray-800"
               }`}
             >
               Nurses ({mockNurses.length})
@@ -113,7 +110,7 @@ export default function UsersManagement() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
+              
                 <th className="px-6 py-3 text-left text-xs text-gray-600">ID</th>
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Name</th>
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Email</th>
@@ -141,7 +138,7 @@ export default function UsersManagement() {
                         <button className="p-1 text-red-600 hover:bg-red-50 rounded transition-colors" title="Suspend">
                           <Ban className="w-4 h-4" />
                         </button>
-                      ) : (
+                      ) (
                         <button className="p-1 text-green-600 hover:bg-green-50 rounded transition-colors" title="Activate">
                           <CheckCircle className="w-4 h-4" />
                         </button>

@@ -1,43 +1,42 @@
 import { useState } from "react";
 import { Plus, Edit, Trash2, Eye } from "lucide-react";
 
-interface Admin {
-  id: string;
-  name: string;
-  email: string;
-  createdDate: string;
-  lastActive: string;
+  id;
+  name;
+  email;
+  createdDate;
+  lastActive;
 }
 
-const mockAdmins: Admin[] = [
+const mockAdmins[] = [
   {
-    id: "A001",
-    name: "Admin Sarah",
-    email: "sarah.admin@nursehome.com",
-    createdDate: "2025-06-15",
-    lastActive: "2026-03-01 09:30 AM",
+    id"A001",
+    name"Admin Sarah",
+    email"sarah.admin@nursehome.com",
+    createdDate"2025-06-15",
+    lastActive"2026-03-01 09:30 AM",
   },
   {
-    id: "A002",
-    name: "Admin Michael",
-    email: "michael.admin@nursehome.com",
-    createdDate: "2025-08-20",
-    lastActive: "2026-03-01 08:15 AM",
+    id"A002",
+    name"Admin Michael",
+    email"michael.admin@nursehome.com",
+    createdDate"2025-08-20",
+    lastActive"2026-03-01 08:15 AM",
   },
   {
-    id: "A003",
-    name: "Admin Jessica",
-    email: "jessica.admin@nursehome.com",
-    createdDate: "2025-10-05",
-    lastActive: "2026-02-28 05:45 PM",
+    id"A003",
+    name"Admin Jessica",
+    email"jessica.admin@nursehome.com",
+    createdDate"2025-10-05",
+    lastActive"2026-02-28 05:45 PM",
   },
 ];
 
 const recentActions = [
-  { admin: "Admin Sarah", action: "Approved nurse verification for Dr. Emily Chen", time: "10 mins ago" },
-  { admin: "Admin Michael", action: "Updated payment transaction status", time: "1 hour ago" },
-  { admin: "Admin Jessica", action: "Resolved complaint #4521", time: "2 hours ago" },
-  { admin: "Admin Sarah", action: "Created new admin account for Admin Tom", time: "3 hours ago" },
+  { admin"Admin Sarah", action"Approved nurse verification for Dr. Emily Chen", time"10 mins ago" },
+  { admin"Admin Michael", action"Updated payment transaction status", time"1 hour ago" },
+  { admin"Admin Jessica", action"Resolved complaint #4521", time"2 hours ago" },
+  { admin"Admin Sarah", action"Created new admin account for Admin Tom", time"3 hours ago" },
 ];
 
 export default function AdminManagement() {
@@ -48,7 +47,7 @@ export default function AdminManagement() {
       {/* Header */}
       <div className="bg-white rounded-lg shadow p-6">
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-          <div>
+          
             <h2 className="text-gray-800 mb-1">Admin Management</h2>
             <p className="text-sm text-gray-500">Manage administrator accounts</p>
           </div>
@@ -67,7 +66,7 @@ export default function AdminManagement() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
+              
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Admin ID</th>
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Name</th>
                 <th className="px-6 py-3 text-left text-xs text-gray-600">Email</th>
@@ -130,11 +129,11 @@ export default function AdminManagement() {
               <h3 className="text-gray-800">Add New Administrator</h3>
             </div>
             <div className="p-6 space-y-4">
-              <div>
+              
                 <label className="block text-sm text-gray-700 mb-2">Full Name</label>
                 <input type="text" className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white" placeholder="Enter name..." />
               </div>
-              <div>
+              
                 <label className="block text-sm text-gray-700 mb-2">Email</label>
                 <input type="email" className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white" placeholder="admin@nursehome.com" />
               </div>

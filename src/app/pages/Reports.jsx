@@ -16,7 +16,7 @@ const nursePerformance = [
 ];
 
 export default function Reports() {
-  const handleExport = (format: string) => {
+  const handleExport = (format) => {
     alert(`Exporting report as ${format}...`);
   };
 
