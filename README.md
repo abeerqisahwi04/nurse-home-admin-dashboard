@@ -1,11 +1,23 @@
+# Nurse Home Admin Dashboard
 
-  # Healthcare Admin Dashboard
+A modern admin dashboard for managing the Nurse Home healthcare system.
 
-  This is a code bundle for Healthcare Admin Dashboard. The original project is available at https://www.figma.com/design/s86ch5jrhzmKBwMYhZVSWP/Healthcare-Admin-Dashboard.
+## Features
+- Dashboard analytics (patients, nurses, requests)
+- Nurse verification system
+- User management
+- Service requests tracking
+- Payment & transaction overview
+- Notifications & announcements
 
-  ## Running the code
+## Tech Stack
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- shadcn/ui
 
-  Run `npm i` to install the dependencies.
+## Getting Started
 
-  Run `npm run dev` to start the development server.
-  
+```bash
+npm install
+npm run dev
