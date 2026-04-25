@@ -1,30 +1,22 @@
 import { useState } from "react";
 import { Send, Users, UserCheck, Bell } from "lucide-react";
 
-  id;
-  title;
-  message;
-  target;
-  date;
-  sentBy;
-}
-
-const recentNotifications[] = [
+const recentNotifications = [
   {
-    id"N001",
-    title"System Maintenance",
-    message"Scheduled maintenance on March 5th at 2:00 AM",
-    target"All Users",
-    date"2026-02-28",
-    sentBy"Admin Sarah",
+    id: "N001",
+    title: "System Maintenance",
+    message: "Scheduled maintenance on March 5th at 2:00 AM",
+    target: "All Users",
+    date: "2026-02-28",
+    sentBy: "Admin Sarah",
   },
   {
-    id"N002",
-    title"New Service Available",
-    message"Physical Therapy service is now available",
-    target"Patients Only",
-    date"2026-02-27",
-    sentBy"Admin Michael",
+    id: "N002",
+    title: "New Service Available",
+    message: "Physical Therapy service is now available",
+    target: "Patients Only",
+    date: "2026-02-27",
+    sentBy: "Admin Michael",
   },
 ];
 
@@ -38,6 +30,7 @@ export default function NotificationsAnnouncements() {
       alert(`Notification sent to ${target}!`);
       setTitle("");
       setMessage("");
+      setTarget("All Users");
     }
   };
 
@@ -46,7 +39,9 @@ export default function NotificationsAnnouncements() {
       {/* Header */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-gray-800 mb-1">Notifications & Announcements</h2>
-        <p className="text-sm text-gray-500">Send system-wide or targeted notifications to users</p>
+        <p className="text-sm text-gray-500">
+          Send system-wide or targeted notifications to users
+        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -58,8 +53,10 @@ export default function NotificationsAnnouncements() {
           </h3>
 
           <div className="space-y-4">
-            
-              <label className="block text-sm text-gray-700 mb-2">Target Audience</label>
+            <div>
+              <label className="block text-sm text-gray-700 mb-2">
+                Target Audience
+              </label>
               <select
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white"
                 value={target}
@@ -71,8 +68,10 @@ export default function NotificationsAnnouncements() {
               </select>
             </div>
 
-            
-              <label className="block text-sm text-gray-700 mb-2">Notification Title</label>
+            <div>
+              <label className="block text-sm text-gray-700 mb-2">
+                Notification Title
+              </label>
               <input
                 type="text"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white"
@@ -82,8 +81,10 @@ export default function NotificationsAnnouncements() {
               />
             </div>
 
-            
-              <label className="block text-sm text-gray-700 mb-2">Message</label>
+            <div>
+              <label className="block text-sm text-gray-700 mb-2">
+                Message
+              </label>
               <textarea
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white"
                 rows={6}
@@ -107,41 +108,58 @@ export default function NotificationsAnnouncements() {
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-gray-800 mb-4">Quick Templates</h3>
+
             <div className="space-y-3">
               <button
                 onClick={() => {
                   setTitle("Nurse Verification Approved");
-                  setMessage("Congratulations! Your nurse verification has been approved. You can now start accepting service requests.");
+                  setMessage(
+                    "Congratulations! Your nurse verification has been approved. You can now start accepting service requests."
+                  );
                   setTarget("Nurses Only");
                 }}
                 className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
               >
-                <p className="text-sm text-gray-800">Nurse Approval Notification</p>
-                <p className="text-xs text-gray-500 mt-1">For approved nurse verifications</p>
+                <p className="text-sm text-gray-800">
+                  Nurse Approval Notification
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  For approved nurse verifications
+                </p>
               </button>
 
               <button
                 onClick={() => {
                   setTitle("Nurse Verification Rejected");
-                  setMessage("Your nurse verification application requires additional information. Please review and resubmit.");
+                  setMessage(
+                    "Your nurse verification application requires additional information. Please review and resubmit."
+                  );
                   setTarget("Nurses Only");
                 }}
                 className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
               >
-                <p className="text-sm text-gray-800">Nurse Rejection Notification</p>
-                <p className="text-xs text-gray-500 mt-1">For rejected applications</p>
+                <p className="text-sm text-gray-800">
+                  Nurse Rejection Notification
+                </p>
+                <p className="text-xs text-gray-500 mt-1">
+                  For rejected applications
+                </p>
               </button>
 
               <button
                 onClick={() => {
                   setTitle("Appointment Reminder");
-                  setMessage("This is a reminder for your upcoming appointment scheduled for tomorrow.");
+                  setMessage(
+                    "This is a reminder for your upcoming appointment scheduled for tomorrow."
+                  );
                   setTarget("Patients Only");
                 }}
                 className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 <p className="text-sm text-gray-800">Appointment Reminder</p>
-                <p className="text-xs text-gray-500 mt-1">For upcoming appointments</p>
+                <p className="text-xs text-gray-500 mt-1">
+                  For upcoming appointments
+                </p>
               </button>
             </div>
           </div>
@@ -149,6 +167,7 @@ export default function NotificationsAnnouncements() {
           {/* Target Audience Stats */}
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-gray-800 mb-4">Target Audience</h3>
+
             <div className="space-y-3">
               <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                 <div className="flex items-center gap-3">
@@ -181,18 +200,24 @@ export default function NotificationsAnnouncements() {
       {/* Recent Notifications */}
       <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-gray-800 mb-4">Recently Sent Notifications</h3>
+
         <div className="space-y-3">
           {recentNotifications.map((notif) => (
-            <div key={notif.id} className="p-4 border border-gray-200 rounded-lg">
+            <div
+              key={notif.id}
+              className="p-4 border border-gray-200 rounded-lg"
+            >
               <div className="flex items-start justify-between mb-2">
                 <h4 className="text-sm text-gray-800">{notif.title}</h4>
                 <span className="text-xs text-gray-500">{notif.date}</span>
               </div>
+
               <p className="text-sm text-gray-600 mb-2">{notif.message}</p>
-              <div className="flex items-center gap-4 text-xs text-gray-500">
-                Target{notif.target}</span>
-                •</span>
-                Sent by{notif.sentBy}</span>
+
+              <div className="flex items-center gap-2 text-xs text-gray-500">
+                <span>Target: {notif.target}</span>
+                <span>•</span>
+                <span>Sent by: {notif.sentBy}</span>
               </div>
             </div>
           ))}
