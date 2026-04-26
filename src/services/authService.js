@@ -1,7 +1,7 @@
 import { apiRequest, saveAdminToken, logoutAdmin } from "./api";
 
 export async function loginAdmin(email, password) {
-    const data = await apiRequest("/Auth/login", {
+    const data = await apiRequest("/api/Auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
