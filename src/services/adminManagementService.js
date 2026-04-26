@@ -1,6 +1,6 @@
 import { apiRequest } from "./api";
 
-const BASE_ENDPOINT = "/admin/management";
+const BASE_ENDPOINT = "/api/admin/management";
 
 export async function getAdmins() {
     return apiRequest(BASE_ENDPOINT);
