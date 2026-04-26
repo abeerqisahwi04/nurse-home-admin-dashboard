@@ -1,40 +1,138 @@
-import { Users, UserCheck, Clock, ClipboardList, TrendingUp, TrendingDown } from "lucide-react";
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { useEffect, useState } from "react";
+import {
+  Users,
+  UserCheck,
+  Clock,
+  ClipboardList,
+  TrendingUp,
+  TrendingDown,
+} from "lucide-react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
+import { getDashboardOverview } from "../../services/dashboardService";
 
-// Converted from TypeScript
-const statsCards = [
-  { title: "Total Patients", value: "2,847", change: "+12%", trend: "up", icon: Users, color: "#1F7A8C" },
-  { title: "Total Nurses", value: "456", change: "+8%", trend: "up", icon: UserCheck, color: "#4CAF50" },
-  { title: "Pending Verifications", value: "23", change: "-5%", trend: "down", icon: Clock, color: "#FFC107" },
-  { title: "Today's Requests", value: "87", change: "+15%", trend: "up", icon: ClipboardList, color: "#FF5722" },
-];
+const statusColors = {
+  Pending: "#FFC107",
+  Assigned: "#2196F3",
+  Completed: "#4CAF50",
+  Cancelled: "#FF5722",
+  Canceled: "#FF5722",
+};
 
-const requestStatusData = [
-  { name: "Pending", value: 35, color: "#FFC107" },
-  { name: "Assigned", value: 45, color: "#2196F3" },
-  { name: "Completed", value: 120, color: "#4CAF50" },
-  { name: "Cancelled", value: 12, color: "#FF5722" },
-];
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", { weekday: "short" });
+}
 
-const weeklyActivityData = [
-  { day: "Mon", requests: 65, completed: 52 },
-  { day: "Tue", requests: 78, completed: 68 },
-  { day: "Wed", requests: 82, completed: 75 },
-  { day: "Thu", requests: 71, completed: 65 },
-  { day: "Fri", requests: 88, completed: 80 },
-  { day: "Sat", requests: 52, completed: 48 },
-  { day: "Sun", requests: 45, completed: 42 },
-];
+function formatTimeAgo(dateString) {
+  const date = new Date(dateString);
+  const diffMinutes = Math.floor((new Date() - date) / 60000);
 
-const recentActivities = [
-  { time: "10 mins ago", action: "Admin Sarah approved nurse verification for Dr. Emily Chen", type: "approval" },
-  { time: "25 mins ago", action: "New service request submitted by Patient John Doe", type: "request" },
-  { time: "1 hour ago", action: "Admin Michael updated pricing for Home Care service", type: "update" },
-  { time: "2 hours ago", action: "Complaint #4521 resolved by Admin Jessica", type: "resolution" },
-  { time: "3 hours ago", action: "New nurse registration: Maria Rodriguez", type: "registration" },
-];
+  if (diffMinutes < 1) return "Just now";
+  if (diffMinutes < 60) return `${diffMinutes} mins ago`;
+
+  const diffHours = Math.floor(diffMinutes / 60);
+  if (diffHours < 24) return `${diffHours} hours ago`;
+
+  const diffDays = Math.floor(diffHours / 24);
+  return `${diffDays} days ago`;
+}
 
 export default function Dashboard() {
+  const [dashboard, setDashboard] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadDashboard() {
+      try {
+        setLoading(true);
+        const data = await getDashboardOverview();
+        setDashboard(data);
+      } catch (err) {
+        setError(err.message || "Failed to load dashboard data");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadDashboard();
+  }, []);
+
+  if (loading) {
+    return <div className="text-gray-600">Loading dashboard...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 text-red-600 border border-red-200 p-4 rounded-lg">
+        {error}
+      </div>
+    );
+  }
+
+  const statsCards = [
+    {
+      title: "Total Patients",
+      value: dashboard?.totalPatients ?? 0,
+      change: "+12%",
+      trend: "up",
+      icon: Users,
+      color: "#1F7A8C",
+    },
+    {
+      title: "Total Nurses",
+      value: dashboard?.totalNurses ?? 0,
+      change: "+8%",
+      trend: "up",
+      icon: UserCheck,
+      color: "#4CAF50",
+    },
+    {
+      title: "Pending Verifications",
+      value: dashboard?.pendingVerifications ?? 0,
+      change: "-5%",
+      trend: "down",
+      icon: Clock,
+      color: "#FFC107",
+    },
+    {
+      title: "Today's Requests",
+      value: dashboard?.todaysRequests ?? 0,
+      change: "+15%",
+      trend: "up",
+      icon: ClipboardList,
+      color: "#FF5722",
+    },
+  ];
+
+  const requestStatusData =
+    dashboard?.requestStatusDistribution?.map((item) => ({
+      name: item.status,
+      value: item.count,
+      color: statusColors[item.status] || "#1F7A8C",
+    })) || [];
+
+  const weeklyActivityData =
+    dashboard?.weeklyActivity?.map((item) => ({
+      day: formatDate(item.date),
+      requests: item.requests,
+      completed: item.completed,
+    })) || [];
+
+  const recentActivities = dashboard?.recentActivity || [];
+
   return (
     <div className="space-y-6">
       {/* Stats Cards */}
@@ -42,17 +140,27 @@ export default function Dashboard() {
         {statsCards.map((stat) => {
           const Icon = stat.icon;
           const TrendIcon = stat.trend === "up" ? TrendingUp : TrendingDown;
+
           return (
             <div key={stat.title} className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${stat.color}20` }}>
+                <div
+                  className="w-12 h-12 rounded-lg flex items-center justify-center"
+                  style={{ backgroundColor: `${stat.color}20` }}
+                >
                   <Icon className="w-6 h-6" style={{ color: stat.color }} />
                 </div>
-                <div className={`flex items-center gap-1 text-sm ${stat.trend === "up" ? "text-green-600" : "text-red-600"}`}>
+
+                <div
+                  className={`flex items-center gap-1 text-sm ${
+                    stat.trend === "up" ? "text-green-600" : "text-red-600"
+                  }`}
+                >
                   <TrendIcon className="w-4 h-4" />
                   <span>{stat.change}</span>
                 </div>
               </div>
+
               <h3 className="text-gray-500 text-sm mb-1">{stat.title}</h3>
               <p className="text-2xl text-gray-800">{stat.value}</p>
             </div>
@@ -60,63 +168,97 @@ export default function Dashboard() {
         })}
       </div>
 
-      {/* Charts Row */}
+      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Request Status Chart */}
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-gray-800 mb-4">Request Status Distribution</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={requestStatusData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                outerRadius={100}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {requestStatusData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+
+          {requestStatusData.length === 0 ? (
+            <p className="text-sm text-gray-500">No request data available.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={requestStatusData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) =>
+                    `${name}: ${(percent * 100).toFixed(0)}%`
+                  }
+                  outerRadius={100}
+                  dataKey="value"
+                >
+                  {requestStatusData.map((entry, index) => (
+                    <Cell key={index} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
         </div>
 
-        {/* Weekly Activity Chart */}
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-gray-800 mb-4">Weekly Activity Overview</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={weeklyActivityData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="requests" stroke="#1F7A8C" strokeWidth={2} name="Requests" />
-              <Line type="monotone" dataKey="completed" stroke="#4CAF50" strokeWidth={2} name="Completed" />
-            </LineChart>
-          </ResponsiveContainer>
+
+          {weeklyActivityData.length === 0 ? (
+            <p className="text-sm text-gray-500">No weekly activity data.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={weeklyActivityData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="day" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="requests"
+                  stroke="#1F7A8C"
+                  strokeWidth={2}
+                  name="Requests"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="completed"
+                  stroke="#4CAF50"
+                  strokeWidth={2}
+                  name="Completed"
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
         </div>
       </div>
 
-      {/* Recent Activity Log */}
+      {/* Recent Activity */}
       <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-gray-800 mb-4">Recent Activity</h3>
-        <div className="space-y-3">
-          {recentActivities.map((activity, index) => (
-            <div key={index} className="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors">
-              <div className="w-2 h-2 bg-[#1F7A8C] rounded-full mt-2"></div>
-              <div className="flex-1">
-                <p className="text-sm text-gray-800">{activity.action}</p>
-                <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
+
+        {recentActivities.length === 0 ? (
+          <p className="text-sm text-gray-500">No recent activity.</p>
+        ) : (
+          <div className="space-y-3">
+            {recentActivities.map((activity, index) => (
+              <div
+                key={index}
+                className="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                <div className="w-2 h-2 bg-[#1F7A8C] rounded-full mt-2"></div>
+
+                <div className="flex-1">
+                  <p className="text-sm text-gray-800">
+                    {activity.description || activity.title}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {formatTimeAgo(activity.createdAt)}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

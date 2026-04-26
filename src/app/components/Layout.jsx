@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { NotificationDropdown } from "./NotificationDropdown";
 import { ProfileDropdown } from "./ProfileDropdown";
-import { useAuth } from "../context/AuthContext";
 
 // Navigation items for Nurse Home Admin Dashboard
 
@@ -24,23 +23,29 @@ const navItems = [
   { path: "/nurse-verification", label: "Nurse Verification", icon: UserCheck },
   { path: "/users", label: "Users Management", icon: Users },
   { path: "/service-requests", label: "Service Requests", icon: ClipboardList },
-  { path: "/payment-transactions", label: "Payment & Transactions", icon: Wallet },
+  {
+    path: "/payment-transactions",
+    label: "Payment & Transactions",
+    icon: Wallet,
+  },
   { path: "/complaints", label: "Complaints & Support", icon: MessageSquare },
-  { path: "/notifications", label: "Notifications & Announcements", icon: Bell },
-  { path: "/reports", label: "Reports & Analytics", icon: BarChart3 },
+  {
+    path: "/notifications",
+    label: "Notifications & Announcements",
+    icon: Bell,
+  },
   { path: "/admin-management", label: "Admin Management", icon: Shield },
-  { path: "/settings", label: "Settings", icon: Settings },
 ];
 
 export function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { logout } = useAuth();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   function handleLogout() {
-    logout();
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminUser");
     navigate("/login");
   }
 
@@ -90,7 +95,8 @@ export function Layout() {
         {/* Header */}
         <header className="bg-white border-b border-gray-200 px-8 py-4 flex items-center justify-between">
           <h2 className="text-gray-800">
-            {navItems.find((item) => item.path === location.pathname)?.label || "Dashboard"}
+            {navItems.find((item) => item.path === location.pathname)?.label ||
+              "Dashboard"}
           </h2>
 
           <div className="flex items-center gap-6">

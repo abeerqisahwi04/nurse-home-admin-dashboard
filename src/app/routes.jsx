@@ -7,9 +7,9 @@ import ServiceRequests from "./pages/ServiceRequests";
 import PaymentTransactions from "./pages/PaymentTransactions";
 import ComplaintsSupport from "./pages/ComplaintsSupport";
 import NotificationsAnnouncements from "./pages/NotificationsAnnouncements";
-import Reports from "./pages/Reports";
+import ViewAllNotifications from "./pages/ViewAllNotifications";
 import AdminManagement from "./pages/AdminManagement";
-import Settings from "./pages/Settings";
+import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
@@ -33,9 +33,9 @@ export const router = createBrowserRouter([
       { path: "payment-transactions", Component: PaymentTransactions },
       { path: "complaints", Component: ComplaintsSupport },
       { path: "notifications", Component: NotificationsAnnouncements },
-      { path: "reports", Component: Reports },
+      { path: "view-all-notifications", Component: ViewAllNotifications },
       { path: "admin-management", Component: AdminManagement },
-      { path: "settings", Component: Settings },
+      { path: "edit-profile", Component: EditProfile },
     ],
   },
   {

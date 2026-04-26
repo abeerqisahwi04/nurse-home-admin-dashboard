@@ -32,7 +32,7 @@ export function ProfileDropdown({ isOpen, onClose }) {
   };
 
   const handleEditProfile = () => {
-    alert("Edit Profile - This will open profile editor");
+    navigate("/edit-profile");
     onClose();
   };
 
@@ -61,30 +61,13 @@ export function ProfileDropdown({ isOpen, onClose }) {
       {/* Menu Items */}
       <div className="py-2">
         <button
-          onClick={handleViewProfile}
-          className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-3"
-        >
-          <User className="w-4 h-4 text-gray-600" />
-          View Profile
-        </button>
-
-        <button
           onClick={handleEditProfile}
           className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-3"
         >
           <User className="w-4 h-4 text-gray-600" />
           Edit Profile
         </button>
-
-        <button
-          onClick={handleAccountSettings}
-          className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-3"
-        >
-          <Settings className="w-4 h-4 text-gray-600" />
-          Account Settings
-        </button>
       </div>
-
       {/* Logout */}
       <div className="border-t border-gray-200 py-2">
         <button
