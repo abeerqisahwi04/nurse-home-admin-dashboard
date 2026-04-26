@@ -1,6 +1,6 @@
 import { apiRequest } from "./api";
 
-const BASE_ENDPOINT = "/api/admin/users";
+const BASE_ENDPOINT = "/admin/users";
 
 export async function getAdminUsers({
     type = "Patient",

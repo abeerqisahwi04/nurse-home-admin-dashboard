@@ -105,7 +105,7 @@ export default function NurseVerification() {
   function getFileUrl(path) {
     if (!path) return null;
     if (path.startsWith("http")) return path;
-    return `https://localhost:7053/${path.replace(/^\/+/, "")}`;
+    return `${API_BASE_URL}/${path.replace(/^\/+/, "")}`;
   }
 
   return (

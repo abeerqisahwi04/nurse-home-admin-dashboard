@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://localhost:7053";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ;
 
 export function getAdminToken() {
     return localStorage.getItem("adminToken");
@@ -25,11 +25,33 @@ export async function apiRequest(endpoint, options = {}) {
         },
     });
 
-    if (!response.ok) {
-        const text = await response.text();
-        throw new Error(text || "Request failed");
+    const text = await response.text();
+
+    let data = null;
+
+    if (text) {
+        try {
+            data = JSON.parse(text);
+        } catch {
+            data = text;
+        }
     }
 
-    const text = await response.text();
-    return text ? JSON.parse(text) : null;
+    if (!response.ok) {
+        if (response.status === 401) {
+            logoutAdmin();
+        }
+
+        let message = "Request failed";
+
+        if (data && typeof data === "object") {
+            message = data.message || data.title || JSON.stringify(data);
+        } else if (typeof data === "string" && data.trim()) {
+            message = data;
+        }
+
+        throw new Error(message);
+    }
+
+    return data;
 }

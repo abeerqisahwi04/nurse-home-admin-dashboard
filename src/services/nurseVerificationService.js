@@ -1,6 +1,6 @@
 import { apiRequest } from "./api";
 
-const BASE_ENDPOINT = "/api/admin/nurse-verification";
+const BASE_ENDPOINT = "/admin/nurse-verification";
 
 export async function getPendingNurses(search = "") {
     const params = new URLSearchParams();

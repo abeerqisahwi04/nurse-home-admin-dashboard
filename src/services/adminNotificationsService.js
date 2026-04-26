@@ -1,6 +1,6 @@
 import { apiRequest } from "./api";
 
-const BASE_ENDPOINT = "/api/admin/notifications";
+const BASE_ENDPOINT = "/admin/notifications";
 
 export async function getAudienceCounts() {
     return apiRequest(`${BASE_ENDPOINT}/audience-counts`);

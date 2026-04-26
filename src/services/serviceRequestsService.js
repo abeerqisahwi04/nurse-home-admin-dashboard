@@ -1,6 +1,6 @@
 import { apiRequest } from "./api";
 
-const BASE_ENDPOINT = "/api/admin/service-requests";
+const BASE_ENDPOINT = "/admin/service-requests";
 
 export async function getServiceRequests({ search = "", status = "All" } = {}) {
     const params = new URLSearchParams();
