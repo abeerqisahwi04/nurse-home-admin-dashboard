@@ -16,7 +16,7 @@ export default function NurseVerification() {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   async function loadPendingNurses(search = "") {
     try {
       setLoading(true);
@@ -91,7 +91,9 @@ export default function NurseVerification() {
     };
 
     return (
-      <span className={`px-3 py-1 rounded-full text-xs ${styles[status] || "bg-gray-100 text-gray-700"}`}>
+      <span
+        className={`px-3 py-1 rounded-full text-xs ${styles[status] || "bg-gray-100 text-gray-700"}`}
+      >
         {status || "Pending"}
       </span>
     );
@@ -155,40 +157,73 @@ export default function NurseVerification() {
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
-                <th className="px-6 py-3 text-left text-xs text-gray-600">Nurse ID</th>
-                <th className="px-6 py-3 text-left text-xs text-gray-600">Name</th>
-                <th className="px-6 py-3 text-left text-xs text-gray-600">Email</th>
-                <th className="px-6 py-3 text-left text-xs text-gray-600">Phone</th>
-                <th className="px-6 py-3 text-left text-xs text-gray-600">Registration Date</th>
-                <th className="px-6 py-3 text-left text-xs text-gray-600">Status</th>
-                <th className="px-6 py-3 text-left text-xs text-gray-600">Actions</th>
+                <th className="px-6 py-3 text-left text-xs text-gray-600">
+                  Nurse ID
+                </th>
+                <th className="px-6 py-3 text-left text-xs text-gray-600">
+                  Name
+                </th>
+                <th className="px-6 py-3 text-left text-xs text-gray-600">
+                  Email
+                </th>
+                <th className="px-6 py-3 text-left text-xs text-gray-600">
+                  Phone
+                </th>
+                <th className="px-6 py-3 text-left text-xs text-gray-600">
+                  Registration Date
+                </th>
+                <th className="px-6 py-3 text-left text-xs text-gray-600">
+                  Status
+                </th>
+                <th className="px-6 py-3 text-left text-xs text-gray-600">
+                  Actions
+                </th>
               </tr>
             </thead>
 
             <tbody className="divide-y divide-gray-200">
               {loading ? (
                 <tr>
-                  <td colSpan="7" className="px-6 py-6 text-center text-sm text-gray-500">
+                  <td
+                    colSpan="7"
+                    className="px-6 py-6 text-center text-sm text-gray-500"
+                  >
                     Loading pending nurses...
                   </td>
                 </tr>
               ) : nurses.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="px-6 py-6 text-center text-sm text-gray-500">
+                  <td
+                    colSpan="7"
+                    className="px-6 py-6 text-center text-sm text-gray-500"
+                  >
                     No pending nurses found.
                   </td>
                 </tr>
               ) : (
                 nurses.map((nurse) => (
-                  <tr key={nurse.nurseProfileId} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4 text-sm text-gray-800">{nurse.nurseId}</td>
-                    <td className="px-6 py-4 text-sm text-gray-800">{nurse.name}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{nurse.email}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{nurse.phone || "-"}</td>
+                  <tr
+                    key={nurse.nurseProfileId}
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="px-6 py-4 text-sm text-gray-800">
+                      {nurse.nurseId}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-800">
+                      {nurse.name}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600">
+                      {nurse.email}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600">
+                      {nurse.phone || "-"}
+                    </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       {formatDate(nurse.registrationDate)}
                     </td>
-                    <td className="px-6 py-4">{getStatusBadge(nurse.status)}</td>
+                    <td className="px-6 py-4">
+                      {getStatusBadge(nurse.status)}
+                    </td>
                     <td className="px-6 py-4">
                       <button
                         onClick={() => handleReview(nurse)}
@@ -224,10 +259,15 @@ export default function NurseVerification() {
                   <Info label="Phone" value={selectedNurse.phoneNumber} />
                   <Info label="Location" value={selectedNurse.location} />
                   <Info label="Address" value={selectedNurse.address} />
-                  <Info label="Registration Date" value={formatDate(selectedNurse.registrationDate)} />
+                  <Info
+                    label="Registration Date"
+                    value={formatDate(selectedNurse.registrationDate)}
+                  />
                   <div>
                     <p className="text-sm text-gray-500">Status</p>
-                    <div className="mt-1">{getStatusBadge(selectedNurse.status)}</div>
+                    <div className="mt-1">
+                      {getStatusBadge(selectedNurse.status)}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -235,9 +275,18 @@ export default function NurseVerification() {
               <div>
                 <h4 className="text-gray-700 mb-3">Professional Information</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Info label="Specialization" value={selectedNurse.specialization} />
-                  <Info label="Experience Years" value={selectedNurse.experienceYears} />
-                  <Info label="License Number" value={selectedNurse.licenseNumber} />
+                  <Info
+                    label="Specialization"
+                    value={selectedNurse.specialization}
+                  />
+                  <Info
+                    label="Experience Years"
+                    value={selectedNurse.experienceYears}
+                  />
+                  <Info
+                    label="License Number"
+                    value={selectedNurse.licenseNumber}
+                  />
                   <Info label="National ID" value={selectedNurse.nationalId} />
                 </div>
                 <div className="mt-4">
@@ -248,9 +297,18 @@ export default function NurseVerification() {
               <div>
                 <h4 className="text-gray-700 mb-3">Uploaded Documents</h4>
                 <div className="space-y-2">
-                  <DocumentItem title="Profile Image" url={getFileUrl(selectedNurse.profileImagePath)} />
-                  <DocumentItem title="Certificate" url={getFileUrl(selectedNurse.certificatePath)} />
-                  <DocumentItem title="National ID Image" url={getFileUrl(selectedNurse.nationalIdImagePath)} />
+                  <DocumentItem
+                    title="Profile Image"
+                    url={getFileUrl(selectedNurse.profileImagePath)}
+                  />
+                  <DocumentItem
+                    title="Certificate"
+                    url={getFileUrl(selectedNurse.certificatePath)}
+                  />
+                  <DocumentItem
+                    title="National ID Image"
+                    url={getFileUrl(selectedNurse.nationalIdImagePath)}
+                  />
 
                   {selectedNurse.documents?.map((doc) => (
                     <DocumentItem
